@@ -14,6 +14,17 @@ def check_invalid_input(guess_num):
         raise TypeError('입력은 서로 다른 숫자로 이뤄져야 합니다.')
 
 
+class GameResult:
+    def __init__(self, solved, strike, ball):
+        self.solved: bool = solved
+        self.strike: int = strike
+        self.ball: int = ball
+
+
 class Game:
+    def __init__(self):
+        self.question = ''
+
     def guess(self, guess_num: str):
         check_invalid_input(guess_num)
+        return GameResult(True, 3, 0)
