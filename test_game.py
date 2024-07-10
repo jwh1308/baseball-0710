@@ -30,3 +30,12 @@ class TestGame(TestCase):
         self.assertEqual(True, actual.get_solved())
         self.assertEqual(3, actual.get_strike())
         self.assertEqual(0, actual.get_ball())
+
+    def test_guess_wrong_answer(self):
+        self.game.question = '123'
+        actual: GameResult = self.game.guess('456')
+
+        self.assertIsNotNone(actual)
+        self.assertEqual(False, actual.get_solved())
+        self.assertEqual(0, actual.get_strike())
+        self.assertEqual(0, actual.get_ball())
