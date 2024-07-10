@@ -11,3 +11,7 @@ class TestGame(TestCase):
     def test_exception_when_input_is_not_exist(self):
         with self.assertRaises(TypeError):
             self.game.guess()
+
+    def test_exception_when_input_is_not_three_char(self):
+        with self.assertRaises(TypeError):
+            self.game.guess('3434')
