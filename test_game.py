@@ -1,12 +1,15 @@
 from unittest import TestCase
 
-from game import Game, GameResult
+from game import Game
 
 
 class TestGame(TestCase):
     def setUp(self):
         super().setUp()
         self.game = Game()
+
+    def generate_question(self, question):
+        self.game.question = question
 
     def assert_ilegal_argument(self, guess_num):
         try:
@@ -22,20 +25,16 @@ class TestGame(TestCase):
         self.assert_ilegal_argument('34r')
         self.assert_ilegal_argument('344')
 
-    def test_guess_perfect_answer(self):
-        self.game.question = '123'
-        actual: GameResult = self.game.guess('123')
-
+    def assert_matched_number(self, actual, solved, strike, ball):
         self.assertIsNotNone(actual)
-        self.assertEqual(True, actual.get_solved())
-        self.assertEqual(3, actual.get_strike())
-        self.assertEqual(0, actual.get_ball())
+        self.assertEqual(solved, actual.get_solved())
+        self.assertEqual(strike, actual.get_strike())
+        self.assertEqual(ball, actual.get_ball())
+
+    def test_guess_perfect_answer(self):
+        self.generate_question('123')
+        self.assert_matched_number(self.game.guess('123'), True, 3, 0)
 
     def test_guess_wrong_answer(self):
-        self.game.question = '123'
-        actual: GameResult = self.game.guess('456')
-
-        self.assertIsNotNone(actual)
-        self.assertEqual(False, actual.get_solved())
-        self.assertEqual(0, actual.get_strike())
-        self.assertEqual(0, actual.get_ball())
+        self.generate_question('123')
+        self.assert_matched_number(self.game.guess('456'), False, 0, 0)
