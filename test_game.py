@@ -38,3 +38,7 @@ class TestGame(TestCase):
     def test_guess_wrong_answer(self):
         self.generate_question('123')
         self.assert_matched_number(self.game.guess('456'), False, 0, 0)
+
+    def test_guess_partial_correct(self):
+        self.generate_question('123')
+        self.assert_matched_number(self.game.guess('124'), False, 2, 0)

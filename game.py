@@ -41,6 +41,7 @@ class Game:
         ball = 0
         for user_input, answer in zip(self.question, guess_num):
             if user_input == answer:
-                solved = True
                 strike += 1
+        if strike == 3 or ball == 3:
+            solved = True
         return GameResult(solved, strike, ball)
