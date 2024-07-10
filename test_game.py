@@ -42,3 +42,5 @@ class TestGame(TestCase):
     def test_guess_partial_correct(self):
         self.generate_question('123')
         self.assert_matched_number(self.game.guess('124'), False, 2, 0)
+        self.assert_matched_number(self.game.guess('314'), False, 0, 2)
+        self.assert_matched_number(self.game.guess('329'), False, 1, 1)
