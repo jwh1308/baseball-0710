@@ -16,9 +16,18 @@ def check_invalid_input(guess_num):
 
 class GameResult:
     def __init__(self, solved, strike, ball):
-        self.solved: bool = solved
-        self.strike: int = strike
-        self.ball: int = ball
+        self.__solved: bool = solved
+        self.__strike: int = strike
+        self.__ball: int = ball
+
+    def get_solved(self):
+        return self.__solved
+
+    def get_strike(self):
+        return self.__strike
+
+    def get_ball(self):
+        return self.__ball
 
 
 class Game:
@@ -27,4 +36,11 @@ class Game:
 
     def guess(self, guess_num: str):
         check_invalid_input(guess_num)
-        return GameResult(True, 3, 0)
+        solved = False
+        strike = 0
+        ball = 0
+        for user_input, answer in zip(self.question, guess_num):
+            if user_input == answer:
+                solved = True
+                strike += 1
+        return GameResult(solved, strike, ball)
