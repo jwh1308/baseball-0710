@@ -8,10 +8,14 @@ class TestGame(TestCase):
         super().setUp()
         self.game = Game()
 
-    def test_exception_when_input_is_not_exist(self):
-        with self.assertRaises(TypeError):
-            self.game.guess()
+    def assert_ilegal_argument(self, guess_num):
+        try:
+            self.game.guess(guess_num)
+            self.fail()
+        except TypeError:
+            pass
 
-    def test_exception_when_input_is_not_three_char(self):
-        with self.assertRaises(TypeError):
-            self.game.guess('3434')
+    def test_exception_when_invalid_input(self):
+        self.assert_ilegal_argument(None)
+        self.assert_ilegal_argument('34')
+        self.assert_ilegal_argument('3434')
