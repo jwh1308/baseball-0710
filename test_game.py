@@ -20,3 +20,4 @@ class TestGame(TestCase):
         self.assert_ilegal_argument('34')
         self.assert_ilegal_argument('3434')
         self.assert_ilegal_argument('34r')
+        self.assert_ilegal_argument('344')
