@@ -34,9 +34,10 @@ class Game:
     def __init__(self):
         self.question = ''
 
-    def guess(self, guess_num: str):
-        check_invalid_input(guess_num)
-        solved = False
+    def is_solved(self, guess_num):
+        return self.question == guess_num
+
+    def get_strike_and_ball(self, guess_num):
         strike = 0
         ball = 0
         for user_input, answer in zip(self.question, guess_num):
@@ -44,6 +45,11 @@ class Game:
                 strike += 1
             elif user_input in guess_num:
                 ball += 1
-        if strike == 3 or ball == 3:
-            solved = True
-        return GameResult(solved, strike, ball)
+        return GameResult(False, strike, ball)
+
+    def guess(self, guess_num: str):
+        check_invalid_input(guess_num)
+
+        if self.is_solved(guess_num):
+            return GameResult(True, 3, 0)
+        return self.get_strike_and_ball(guess_num)
